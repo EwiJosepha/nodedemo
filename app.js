@@ -1,19 +1,6 @@
-//streams
-
-// WritableStream: use to write data sequentially
-// ReadableStream; use to write sequentialy
-// DuplexStream: read and write
-// TransformStream: edit
-
-// 64kb is the default size of the buffer
-
-const {createReadStream} = require("fs")
-const stream = createReadStream("./content/big.txt",{highWaterMark:30000,encoding: "utf8" })
-
-stream.on("data", (result)=>{
-  console.log(result);
+const http = require('http')
+const server = http.createServer((req,res)=>{
+  res.end('home page')
 })
 
-stream.on("error", (err)=>{
-  console.log(err);
-})
+server.listen(5000)
