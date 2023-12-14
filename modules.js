@@ -21,6 +21,6 @@ const sayhi = require("./utility")
 const data = require("./alternativedata")
 
 
-sayhi(names.johnal)
+sayhi(names.john)
 console.log(data);
 

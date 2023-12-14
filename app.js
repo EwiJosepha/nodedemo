@@ -1,38 +1,19 @@
-const { readFile } = require("fs")
-const util = require("util")
-// const readfilepromis = util.Promise(readFile)
+//streams
 
-// u have to chechout the util method in asynnchronuos method
+// WritableStream: use to write data sequentially
+// ReadableStream; use to write sequentialy
+// DuplexStream: read and write
+// TransformStream: edit
 
-//handling asynchronous with promises
+// 64kb is the default size of the buffer
 
-const getTxt = (path) => {
-  return new Promise((resolve, reject) => {
-    readFile(path, "utf8", (err, data) => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(data);
-      }
-    })
-  })
-}
+const {createReadStream} = require("fs")
+const stream = createReadStream("./content/big.txt",{highWaterMark:30000,encoding: "utf8" })
 
-// getTxt("./content/first.txt").then((res) => console.log(res)).catch((err) => console.log(err)).then
-// getTxt("./content/second.txt").then((res) => console.log(res)).catch((err) => console.log(err)).then
+stream.on("data", (result)=>{
+  console.log(result);
+})
 
-//handling with aync await keywords
-
- async function start () {
-
-  try{
-    const firstfile = await getTxt("./content/first.txt")
-    console.log(firstfile);
-  }
-  catch{
-console.log("err");
-  }
-
-}
-
-start ()
+stream.on("error", (err)=>{
+  console.log(err);
+})
